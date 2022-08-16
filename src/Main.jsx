@@ -5,15 +5,15 @@ import Home from "./Home";
 import Create from "./Create";
 import TodoDetail from "./TodoDetail";
 
-function Main() {
+function Main({todos,isPending,error}) {
   return (
     
      
         <Switch>
           <Route exact path="/">
-            <Home  />
+            <Home todos={todos} isPending={isPending} error={error} />
           </Route>
-          <Route path="/create">
+          <Route exact path="/create">
             <Create  />
           </Route>
           <Route path="/todos/:id">

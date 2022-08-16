@@ -2,11 +2,13 @@
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { Link } from "react-router-dom";
+import PieChart from "./Piegraph";
 
-const Navbar = () => {
+const Navbar = ({todos}) => {
   return (
-    <div className="bg-neutral-200 h-full shadow-xl border-r-2 fixed w-1/5">
-      <div className="text-center text-2xl font-bold flex items-center justify-around bg-neutral-600 py-4 shadow-sm ">
+
+    <div className="bg-neutral-200 h-full shadow-xl border-r-2  ">
+      <div className="text-center text-2xl font-bold flex items-center justify-around bg-neutral-600 py-6 shadow-sm ">
         <Link to="/" className="text-green-400 w-4/5">
           TODO
         </Link>
@@ -18,26 +20,40 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="uppercase flex flex-col mx-5">
-        <Link
-          to="/"
-          className="hover:text-green-500 transition-all duration-300"
-        >
-          Todo
-        </Link>
-        <Link
-          to="/create"
-          className="hover:text-green-500 transition-all duration-300"
-        >
-          Done{" "}
-        </Link>
-        <Link
-          to="/"
-          className="hover:text-green-500 transition-all duration-300"
-        >
-          missing
-        </Link>
+      <div className=" flex flex-col mx-5">
+      <div className="border-l-4 p-1 text-center text- my-4 border-neutral-600">
+        <p className="text-lg">“Each day I will accomplish one thing on my to do list.”</p>
+        <p className="text-gray-600">― Lailah Gifty Akita</p>
       </div>
+      <div className="flex items-center uppercase justify-start  space-x-2">
+          <div className="bg-amber-500 w-3 h-3 rounded-full"></div>
+          <Link
+            to="/" className=" hover:text-green-500 transition-all duration-300">
+            On Progress
+          </Link>
+          
+        </div>
+        <div className="flex items-center justify-start space-x-2 uppercase">
+          <div className="bg-green-500 w-3 h-3 rounded-full"></div>
+          <Link
+            to="/" className=" hover:text-green-500 transition-all duration-300">
+            Done
+          </Link>
+          
+        </div>
+        <div className="flex items-center justify-start space-x-2 uppercase">
+          <div className="bg-red-500 w-3 h-3 rounded-full"></div>
+          <Link
+            to="/" className=" hover:text-green-500 transition-all duration-300">
+            Missed
+          </Link>
+          
+        </div>
+      </div>
+      <div>
+        <PieChart  data={todos} />
+      </div>
+      
     </div>
   );
 };

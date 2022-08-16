@@ -1,21 +1,40 @@
-import { useParams,history, useHistory } from "react-router-dom";
+
+
+import { useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import useFetch from "./useFetch";
 
 const TodoDetail = () => {
   const { id } = useParams();
-  const history = useHistory()
+  const history = useHistory();
   const {
     data: todo,
     isPending,
     error,
   } = useFetch("http://localhost:8000/todos/" + id);
+
+
   const handleDelete=()=>{
+    
     fetch("http://localhost:8000/todos/" + id,{
         method:"DELETE"
     }).then(()=>{
         console.log("deleted");
         history.push("/")
     })
+  }
+
+  const handleDone=()=>{
+    
+    fetch("http://localhost:8000/todos/" + id,{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({title:todo.title,body:todo.body,date:todo.date,status:"done"})
+    }).then(response=>response.json().then(()=>{
+      history.push("/")
+    })
+    ) 
+
   }
 
   return (
@@ -36,7 +55,12 @@ const TodoDetail = () => {
               {todo.date}
             </div>
           </div>
-          <div onClick={handleDelete} className="bg-red-500 p-2 cursor-pointer rounded-lg mx-5 text-white">Delete</div>
+          <div>
+            <div onClick={handleDone} className="bg-green-500 p-2 cursor-pointer rounded-lg mx-5 text-white">Mark as done</div>
+            <div onClick={handleDelete} className="bg-red-500 p-2 cursor-pointer rounded-lg mx-5 text-white">Delete</div>
+
+
+          </div>
           </div>
           
         </div>

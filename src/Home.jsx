@@ -1,14 +1,9 @@
 
 import Main from "./Main";
 import OnProgress from "./OnProgress";
-import useFetch from "./useFetch";
 
-const Home = () => {
-  const {
-    data: todos,
-    isPending,
-    error,
-  } = useFetch("http://localhost:8000/todos");
+const Home = ({todos,isPending,error}) => {
+
   return (
       <div>
         {error && (
