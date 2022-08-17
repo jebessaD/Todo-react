@@ -3,17 +3,18 @@ import { useHistory,useLocation } from "react-router-dom";
 import { format } from "date-fns";
 
 
-const Create = () => {
-  // const location = useLocation();
+const Update = () => {
+  const location = useLocation();
   
   // var title_value=""
   // var body_value=""
-  // if(location.state!=undefined){
-  //   title_value=location.state.title
-  // }
-  // if(location.state!=undefined){
-  //   body_value=location.state.title
-  // }
+ console.log(location.state.id)
+//   if(location.state!=undefined){
+    const title_value=location.state.title
+//   }
+//   if(location.state!=undefined){
+    const body_value=location.state.title
+//   }
   // // console.log(location.state.title);
   // console.log(location.state.body);
   // console.log(location.state.title);
@@ -26,10 +27,10 @@ const Create = () => {
     // console.log(date, "date");
     e.preventDefault();
 
-    const todo = { title, body, date:time.date, status:time.status };
+    const todo = { title:title_value, body:body_value, date:time.date, id:"id_value", status:time.status };
     // console.log(todo);
-    fetch("http://localhost:8000/todos", {
-      method: "POST",
+    fetch("http://localhost:8000/todos/", {
+      method: "PUT",
 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(todo),
@@ -42,7 +43,7 @@ const Create = () => {
   return (
     <div className="p">
       <h1 className="uppercase text-3xl text-center font-semibold py-4">
-        Create new Todo
+        Update new Todo
       </h1>
       <form
         className="md:w-2/3 w-4/5 mx-auto p-8 bg-neutral-100"
@@ -52,16 +53,18 @@ const Create = () => {
           <label className="py-1">Title</label>
           <input
             required
+            value={title_value}
             onChange={(e) => setTitle(e.target.value)}
             className="p-2 outline-0 bg-white focus:border-r-2 border-green-500 hover:bg-neutral-50"
             type="text"
           />
         </div>
+        
 
         <div className="flex flex-col mb-4">
           <label className="py-1">Body</label>
           <textarea
-          // value={body_value}
+          value={body_value}
 
             required
             onChange={(e) => setBody(e.target.value)}
@@ -75,6 +78,7 @@ const Create = () => {
           <label className="py-1">Date</label>
           <input
             required
+
             onChangeCapture={(e) => {
               const today = format(Date.now(), "yyyy-MM-dd", {
                 awareOfUnicodeTokens: true,
@@ -119,7 +123,7 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Update;
 // title":"title here 22222",
 //             "body": "todo body here",
 //             "date":"july,292022",

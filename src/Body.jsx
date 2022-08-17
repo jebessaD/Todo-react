@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 
-const OnProgress = ({ todos }) => {
+const Body = ({ todos }) => {
   
   var status_color ="green"
 
@@ -49,4 +49,4 @@ const OnProgress = ({ todos }) => {
   );
 };
 
-export default OnProgress;
+export default Body;

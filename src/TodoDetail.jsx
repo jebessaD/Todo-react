@@ -1,7 +1,6 @@
-
-
 import { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import Update from "./Update";
 import useFetch from "./useFetch";
 
 const TodoDetail = () => {
@@ -13,29 +12,44 @@ const TodoDetail = () => {
     error,
   } = useFetch("http://localhost:8000/todos/" + id);
 
+  const handleDelete = () => {
+    fetch("http://localhost:8000/todos/" + id, {
+      method: "DELETE",
+    }).then(() => {
+      console.log("deleted");
+      history.push("/");
+    });
+  };
+  const handleReset = () => {
+    history.push(
+      {
+        pathname:"/update",
+        state:{
+          id:todo.id,
+          title:todo.title,
+          body:todo.body,
+        }
+      }
+    )
 
-  const handleDelete=()=>{
-    
-    fetch("http://localhost:8000/todos/" + id,{
-        method:"DELETE"
-    }).then(()=>{
-        console.log("deleted");
-        history.push("/")
-    })
-  }
+  };
 
-  const handleDone=()=>{
-    
-    fetch("http://localhost:8000/todos/" + id,{
-        method:"PUT",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({title:todo.title,body:todo.body,date:todo.date,status:"done"})
-    }).then(response=>response.json().then(()=>{
-      history.push("/")
-    })
-    ) 
-
-  }
+  const handleDone = () => {
+    fetch("http://localhost:8000/todos/" + id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: todo.title,
+        body: todo.body,
+        date: todo.date,
+        status: "done",
+      }),
+    }).then((response) =>
+      response.json().then(() => {
+        history.push("/");
+      })
+    );
+  };
 
   return (
     <div>
@@ -43,26 +57,51 @@ const TodoDetail = () => {
       {error && <div>{error}</div>}
       {todo && (
         <div className="">
-          <div className= "p-4 bg-gray-100 m-4 rounded  text-center mt-10 text-3xl my-2 text-gray-800 font-semibold uppercase">
+          <div className="p-4 bg-gray-100 m-4 rounded  text-center mt-10 text-3xl my-2 text-gray-800 font-semibold uppercase">
             {todo.title}
           </div>
-          <div className="p-4 border-l-8 border-green-500 bg-gray-100 m-4 rounded items-center  flex justify-between text-center">
+          <div className="p-4 border-l-8 border-gray-500 bg-gray-100 m-4 rounded items-center  flex justify-between text-center">
             <div className="">
-            <div className="text-start text-lg normal-case first-letter:uppercase">
-              {todo.body}
+              <div className="text-start text-lg normal-case first-letter:uppercase">
+                {todo.body}
+              </div>
+              <div className="text-start text-gray-600 capitalize">
+                {todo.date}
+              </div>
             </div>
-            <div className="text-start text-gray-600 capitalize">
-              {todo.date}
+            <div>
+              {todo.status === "pending" ? (
+                <div
+                  onClick={handleDone}
+                  className="bg-green-500 p-2 cursor-pointer rounded-lg mx-5 text-white"
+                >
+                  {" "}
+                  Mark as done
+                </div>
+              ) : (
+                <div></div>
+              )}
+
+              {todo.status === "missed" ? (
+                <div
+                  onClick={handleReset}
+                  className="bg-green-500 p-2 cursor-pointer rounded-lg mx-5 text-white"
+                >
+                  {" "}
+                  reset
+                </div>
+              ) : (
+                <div></div>
+              )}
+
+              <div
+                onClick={handleDelete}
+                className="bg-red-500 p-2 my-3 cursor-pointer rounded-lg mx-5 text-white"
+              >
+                Delete
+              </div>
             </div>
           </div>
-          <div>
-            <div onClick={handleDone} className="bg-green-500 p-2 cursor-pointer rounded-lg mx-5 text-white">Mark as done</div>
-            <div onClick={handleDelete} className="bg-red-500 p-2 cursor-pointer rounded-lg mx-5 text-white">Delete</div>
-
-
-          </div>
-          </div>
-          
         </div>
       )}
     </div>

@@ -20,12 +20,15 @@ const Navbar = ({todos}) => {
         </Link>
       </div>
 
-      <div className=" flex flex-col mx-5">
-      <div className="border-l-4 p-1 text-center text- my-4 border-neutral-600">
+      <div className=" flex flex-col mx-5  ">
+      <div className="border-l-4 p-1 text-center text- my-5 mb-16 border-neutral-600">
         <p className="text-lg">“Each day I will accomplish one thing on my to do list.”</p>
         <p className="text-gray-600">― Lailah Gifty Akita</p>
       </div>
-      <div className="flex items-center uppercase justify-start  space-x-2">
+
+        <div className="h-0.5 bg-neutral-700 mb-6"></div>
+        
+      <div className="flex items-center uppercase justify-start space-x-2">
           <div className="bg-amber-500 w-3 h-3 rounded-full"></div>
           <Link
             to="/" className=" hover:text-green-500 transition-all duration-300">
@@ -33,10 +36,10 @@ const Navbar = ({todos}) => {
           </Link>
           
         </div>
-        <div className="flex items-center justify-start space-x-2 uppercase">
+        <div className="flex items-center justify-start  my-4  space-x-2 uppercase">
           <div className="bg-green-500 w-3 h-3 rounded-full"></div>
           <Link
-            to="/" className=" hover:text-green-500 transition-all duration-300">
+            to="/donelist" className=" hover:text-green-500 transition-all duration-300">
             Done
           </Link>
           
@@ -44,7 +47,7 @@ const Navbar = ({todos}) => {
         <div className="flex items-center justify-start space-x-2 uppercase">
           <div className="bg-red-500 w-3 h-3 rounded-full"></div>
           <Link
-            to="/" className=" hover:text-green-500 transition-all duration-300">
+            to="/missed" className=" hover:text-green-500 transition-all duration-300">
             Missed
           </Link>
           

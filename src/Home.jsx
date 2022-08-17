@@ -1,6 +1,6 @@
 
 import Main from "./Main";
-import OnProgress from "./OnProgress";
+import Body from "./Body";
 
 const Home = ({todos,isPending,error}) => {
 
@@ -18,7 +18,7 @@ const Home = ({todos,isPending,error}) => {
 
 
 
-        {todos &&  <OnProgress todos={todos} />}
+        {todos &&  <Body todos={todos} />}
       </div>
   );
 };

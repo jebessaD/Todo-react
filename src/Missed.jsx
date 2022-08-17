@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const DoneList = ({ todos, isPending, error }) => {
+const Missed = ({ todos, isPending, error }) => {
   return (
     <div>
       <div>
@@ -16,17 +16,17 @@ const DoneList = ({ todos, isPending, error }) => {
 
         {todos && (
           <div>
-            <h1 className="text-2xl font-bold text-green-500 my-4 shadow-md py-4 text-center">
+            <h1 className="text-2xl font-bold text-gray-500 my-4 shadow-md py-4 text-center">
               DONE LIST
             </h1>
 
             <div className="grid grid-cols-2 mx-10">
               {todos.map((todo) => {
-               if(todo.status==="done"){
+               if(todo.status==="missed"){
                  return (
                   <Link key={todo.id} to={`/todos/${todo.id}`}>
                     <div
-                      className={`p-4 border-l-4 border-green-600 m-2 bg-neutral-100 rounded-r`}
+                      className={`p-4 border-l-4 border-red-500 m-2 bg-neutral-100 rounded-r`}
                     >
                       <div className="text-start break-words text-xl text-gray-800 font-semibold uppercase">
                         {todo.title}
@@ -51,4 +51,4 @@ const DoneList = ({ todos, isPending, error }) => {
   );
 };
 
-export default DoneList;
+export default Missed;
